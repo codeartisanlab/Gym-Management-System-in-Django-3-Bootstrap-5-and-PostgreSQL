@@ -29,7 +29,7 @@
 	          <a class="nav-link" href="#">Pricing</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link btn btn-dark btn-sm text-white" href="#">Enquiry</a>
+	          <a class="nav-link btn btn-dark btn-sm text-white" href="{% url 'enquiry' %}">Enquiry</a>
 	        </li>
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,9 +58,9 @@
   <footer class="container py-5">
   <p class="float-end"><a href="#">Back to top</a></p>
   <p>© 2017–2021 Arnold GYM, Inc. · 
-        <a href="#">Privacy</a> · 
-        <a href="#">Terms</a> . 
-        <a href="#">FAQ</a> .
+        <a href="{% url 'pagedetail' 2 %}">Privacy</a> · 
+        <a href="{% url 'pagedetail' 3 %}">Terms</a> . 
+        <a href="{% url 'faq' %}">FAQ</a> .
         <a href="#">Contact Us</a> .
     </p>
 </footer>

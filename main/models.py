@@ -23,3 +23,29 @@ class Service(models.Model):
 
 	def image_tag(self):
 		return mark_safe('<img src="%s" width="80" />' % (self.img.url))
+
+# Pages
+class Page(models.Model):
+	title=models.CharField(max_length=200)
+	detail=models.TextField()
+
+	def __str__(self):
+		return self.title
+
+# FAQ
+class Faq(models.Model):
+	quest=models.TextField()
+	ans=models.TextField()
+
+	def __str__(self):
+		return self.quest
+
+# Enquiry Model
+class Enquiry(models.Model):
+	full_name=models.CharField(max_length=150)
+	email=models.CharField(max_length=150)
+	detail=models.TextField()
+	send_time=models.DateTimeField(auto_now_add=True)
+	
+	def __str__(self):
+		return self.full_name
