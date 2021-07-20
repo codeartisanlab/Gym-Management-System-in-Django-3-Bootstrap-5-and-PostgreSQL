@@ -9,6 +9,8 @@ urlpatterns=[
 	path('pagedetail/<int:id>',views.page_detail,name='pagedetail'),
 	path('faq',views.faq_list,name='faq'),
 	path('enquiry',views.enquiry,name='enquiry'),
+	path('gallery',views.gallery,name='gallery'),
+	path('gallerydetail/<int:id>',views.gallery_detail,name='gallery_detail'),
 ]
 
 if settings.DEBUG:
