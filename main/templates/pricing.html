@@ -47,8 +47,10 @@
           <th scope="row" class="text-start">{{feature.title}}</th>
           {% for plan in plans %}
           <td>
-            {% if plan.id == feature.subplan.id %}
+            {% if plan in feature.subplan.all %}
             <i class="bi bi-check-lg"></i>
+            {% else %}
+            <i class="bi bi-x-lg text-danger"></i>
             {% endif %}
           </td>
           {% endfor %}
