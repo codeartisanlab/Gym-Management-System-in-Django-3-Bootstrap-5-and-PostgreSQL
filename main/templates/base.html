@@ -7,20 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" />
+    <!-- Include jquery -->
+    <script type="text/javascript" src="{% static 'jquery-3.6.0.min.js' %}"></script>
     <title>Home - Arnold GYM</title>
   </head>
   <body>
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-warning">
 	  <div class="container">
-	    <a class="navbar-brand" href="#">Arnold GYM</a>
+	    <a class="navbar-brand" href="{% url 'home' %}">Arnold GYM</a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
 	    <div class="collapse navbar-collapse" id="navbarNav">
 	      <ul class="navbar-nav ms-auto">
 	        <li class="nav-item">
-	          <a class="nav-link" aria-current="page" href="#">Home</a>
+	          <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" aria-current="page" href="{% url 'gallery' %}">Gallery</a>

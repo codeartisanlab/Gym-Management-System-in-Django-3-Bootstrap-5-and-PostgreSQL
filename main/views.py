@@ -5,7 +5,8 @@ from . import forms
 def home(request):
 	banners=models.Banners.objects.all()
 	services=models.Service.objects.all()[:3]
-	return render(request, 'home.html',{'banners':banners,'services':services})
+	gimgs=models.GalleryImage.objects.all().order_by('-id')[:9]
+	return render(request, 'home.html',{'banners':banners,'services':services,'gimgs':gimgs})
 
 # PageDetail
 def page_detail(request,id):
