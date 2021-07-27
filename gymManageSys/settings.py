@@ -139,3 +139,6 @@ JAZZMIN_SETTINGS={
     "site_header": "GMS Admin",
     "order_with_respect_to": ["auth", "main.banners","main.service","main.enquiry","main.gallery","main.GalleryImage","main.Page","main.Faq","main.SubPlan","main.SubPlanFeature"],
 }
+
+LOGIN_REDIRECT_URL='home'
+LOGOUT_REDIRECT_URL='login'

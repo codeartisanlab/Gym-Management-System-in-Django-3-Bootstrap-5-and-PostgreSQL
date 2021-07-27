@@ -38,12 +38,14 @@
 	            My Account
 	          </a>
 	          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+	          	{% if not request.user.is_authenticated %}
 	            <li><a class="dropdown-item" href="#">Register</a></li>
-	            <li><a class="dropdown-item" href="#">Login</a></li>
-	            <li><hr class="dropdown-divider"></li>
+	            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+	            {% else %}
 	            <li><a class="dropdown-item" href="#">Profile</a></li>
 	            <li><a class="dropdown-item" href="#">Settings</a></li>
-	            <li><a class="dropdown-item" href="#">Logout</a></li>
+	            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+	            {% endif %}
 	          </ul>
 	        </li>
 	      </ul>
