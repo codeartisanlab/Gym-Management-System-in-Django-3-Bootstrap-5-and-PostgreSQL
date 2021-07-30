@@ -43,6 +43,17 @@ def gallery_detail(request,id):
 
 # Subscription Plans
 def pricing(request):
-	pricing=models.SubPlan.objects.all()
+	pricing=models.SubPlan.objects.all().order_by('price')
 	dfeatures=models.SubPlanFeature.objects.all();
 	return render(request, 'pricing.html',{'plans':pricing,'dfeatures':dfeatures})
+
+# SignUp
+def signup(request):
+	msg=None
+	if request.method=='POST':
+		form=forms.SignUp(request.POST)
+		if form.is_valid():
+			form.save()
+			msg='Thank you for register.'
+	form=forms.SignUp
+	return render(request, 'registration/signup.html',{'form':form,'msg':msg})

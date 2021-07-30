@@ -39,7 +39,7 @@
 	          </a>
 	          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
 	          	{% if not request.user.is_authenticated %}
-	            <li><a class="dropdown-item" href="#">Register</a></li>
+	            <li><a class="dropdown-item" href="{% url 'signup' %}">Register</a></li>
 	            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
 	            {% else %}
 	            <li><a class="dropdown-item" href="#">Profile</a></li>
