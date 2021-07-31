@@ -26,7 +26,11 @@
             <li>{{feature.title}}</li>
             {% endfor %}
           </ul>
-          <button type="button" class="w-100 btn btn-lg btn-outline-primary">Get started</button>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'checkout' plan.id %}" class="w-100 btn btn-lg btn-outline-primary">Get started</a>
+          {% else %}
+          <a href="{% url 'login' %}" class="w-100 btn btn-lg btn-outline-primary">Get started</a>
+          {% endif %}
         </div>
       </div>
     </div>
