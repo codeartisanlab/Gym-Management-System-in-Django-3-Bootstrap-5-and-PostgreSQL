@@ -94,3 +94,13 @@ class SubPlanFeature(models.Model):
 	def __str__(self):
 		return self.title
 
+# Package Discounts
+class PlanDiscount(models.Model):
+	subplan=models.ForeignKey(SubPlan, on_delete=models.CASCADE,null=True)
+	total_months=models.IntegerField()
+	total_discount=models.IntegerField()
+
+	def __str__(self):
+		return str(self.total_months)
+
+

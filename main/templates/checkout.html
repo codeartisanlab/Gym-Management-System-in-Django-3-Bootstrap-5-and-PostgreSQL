@@ -41,33 +41,20 @@
 							</td>
 							<td>
 								<ul class="list-unstyled">
-					              {% for feature in plan.subplanfeature_set.all %}
+				              	{% for feature in plan.subplanfeature_set.all %}
 						            <li>{{feature.title}}</li>
-					            	{% endfor %}
+				            	{% endfor %}
 					            </ul>
 							</td>
 							<td>
 								<table class="table table-bordered">
-									<tr>
-										<td><input data-planprice="{{plan.price}}" data-discount="0" type="radio" id="validity1" name="validity" class="select-validity" value="1" /></td>
-										<th><label for="validity1">1 Month</label></th>
-										<td></td>
-									</tr>
-									<tr>
-										<td><input data-planprice="150" data-discount="10" type="radio" id="validity2" name="validity" class="select-validity" value="3" /></td>
-										<th><label for="validity2">3 Month</label></th>
-										<td>10%</td>
-									</tr>
-									<tr>
-										<td><input data-planprice="150" data-discount="20" type="radio" id="validity3" value="6" name="validity" class="select-validity" /></td>
-										<th><label for="validity3">6 Month</label></th>
-										<td>20%</td>
-									</tr>
-									<tr>
-										<td><input data-planprice="150" data-discount="30" type="radio" id="validity4" value="12" name="validity" class="select-validity" /></td>
-										<th><label for="validity4">12 Month</label></th>
-										<td>30%</td>
-									</tr>
+									{% for discount in plan.plandiscount_set.all %}
+							            <tr>
+											<td><input data-planprice="{{plan.price}}" data-discount="{{discount.total_discount}}" type="radio" id="validity{{discount.id}}" name="validity" class="select-validity" value="{{discount.total_months}}" /></td>
+											<th><label for="validity{{discount.id}}">{{discount.total_months}} Month</label></th>
+											<td>{{discount.total_discount}}%</td>
+										</tr>
+					            	{% endfor %}
 								</table>
 							</td>
 						</tr>
@@ -76,7 +63,7 @@
 						<tr>
 							<td></td>
 							<th>Total Amount</th>
-							<td><b>$<span class="totalAmount">150</span></b></td>
+							<td><b>$<span class="totalAmount">{{plan.price}}</span></b></td>
 						</tr>
 						<tr>
 							<td colspan="2"></td>
