@@ -44,3 +44,13 @@ admin.site.register(models.SubPlanFeature,SubPlanFeatureAdmin)
 class PlanDiscountAdmin(admin.ModelAdmin):
 	list_display=('subplan','total_months','total_discount')
 admin.site.register(models.PlanDiscount,PlanDiscountAdmin)
+
+
+class SubscriberAdmin(admin.ModelAdmin):
+	list_display=('user','image_tag','mobile')
+admin.site.register(models.Subscriber,SubscriberAdmin)
+
+
+class SubscriptionAdmin(admin.ModelAdmin):
+	list_display=('user','plan','price')
+admin.site.register(models.Subscription,SubscriptionAdmin)

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.html import mark_safe
-
+from django.contrib.auth.models import User
 # Banners
 class Banners(models.Model):
 	img=models.ImageField(upload_to="banners/")
@@ -102,5 +102,26 @@ class PlanDiscount(models.Model):
 
 	def __str__(self):
 		return str(self.total_months)
+
+# Subscriber
+class Subscriber(models.Model):
+	user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+	mobile=models.CharField(max_length=20)
+	address=models.TextField()
+	img=models.ImageField(upload_to="subs/")
+
+	def __str__(self):
+		return str(self.subs)
+
+	def image_tag(self):
+		return mark_safe('<img src="%s" width="80" />' % (self.img.url))
+
+
+# Subscription
+class Subscription(models.Model):
+	user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+	plan=models.ForeignKey(SubPlan, on_delete=models.CASCADE,null=True)
+	price=models.CharField(max_length=50)
+
 
 
