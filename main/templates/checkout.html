@@ -67,7 +67,12 @@
 						</tr>
 						<tr>
 							<td colspan="2"></td>
-							<td><input type="submit" value="Proceed to Payment" class="btn btn-primary" /></td>
+							<td>
+								<form method="post" action="{% url 'checkout_session' plan.id %}">
+									{% csrf_token %}
+									<input type="submit" value="Proceed to Payment" class="btn btn-primary" />
+								</form>
+							</td>
 						</tr>
 					</tfoot>
 				</table>

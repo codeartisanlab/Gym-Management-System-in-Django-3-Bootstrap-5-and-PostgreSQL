@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from . import models
 from . import forms
+import stripe
 # Home Page
 def home(request):
 	banners=models.Banners.objects.all()
@@ -63,3 +64,32 @@ def signup(request):
 def checkout(request,plan_id):
 	planDetail=models.SubPlan.objects.get(pk=plan_id)
 	return render(request, 'checkout.html',{'plan':planDetail})
+
+stripe.api_key=''
+def checkout_session(request,plan_id):
+	plan=models.SubPlan.objects.get(pk=plan_id)
+	session=stripe.checkout.Session.create(
+		payment_method_types=['card'],
+		line_items=[{
+	      'price_data': {
+	        'currency': 'inr',
+	        'product_data': {
+	          'name': plan.title,
+	        },
+	        'unit_amount': plan.price*100,
+	      },
+	      'quantity': 1,
+	    }],
+	    mode='payment',
+	    success_url='http://127.0.0.1:8000/pay_success',
+	    cancel_url='http://127.0.0.1:8000/pay_cancel',
+	)
+	return redirect(session.url, code=303)
+
+# Success
+def pay_success(request):
+	return render(request, 'success.html')
+
+# Cancel
+def pay_cancel(request):
+	return render(request, 'cancel.html')
