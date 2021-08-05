@@ -65,7 +65,7 @@ def checkout(request,plan_id):
 	planDetail=models.SubPlan.objects.get(pk=plan_id)
 	return render(request, 'checkout.html',{'plan':planDetail})
 
-stripe.api_key='sk_test_51JKcB7SFjUWoS3CIIaPlxPSREpJYoyPsn5KIhj2CBCM9z23dRUreOUwFq6eXmRYmgXNfxSozplocikiAFe3aX7sK008OH0sqy6'
+stripe.api_key=''
 def checkout_session(request,plan_id):
 	plan=models.SubPlan.objects.get(pk=plan_id)
 	session=stripe.checkout.Session.create(
