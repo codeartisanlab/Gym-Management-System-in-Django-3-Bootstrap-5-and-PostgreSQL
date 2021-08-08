@@ -115,3 +115,18 @@ def pay_success(request):
 # Cancel
 def pay_cancel(request):
 	return render(request, 'cancel.html')
+
+# User Dashboard Section Start
+def user_dashboard(request):
+	return render(request, 'user/dashboard.html')
+
+# Edit Form
+def update_profile(request):
+	msg=None
+	if request.method=='POST':
+		form=forms.ProfileForm(request.POST,instance=request.user)
+		if form.is_valid():
+			form.save()
+			msg='Data has been saved'
+	form=forms.ProfileForm(instance=request.user)
+	return render(request, 'user/update-profile.html',{'form':form,'msg':msg})
