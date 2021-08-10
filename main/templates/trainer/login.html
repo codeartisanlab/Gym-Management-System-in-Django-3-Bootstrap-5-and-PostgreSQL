@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Main Start -->
+    <main>
+		<!-- Services -->
+		<section class="container my-4">
+			<h1 class="text-center mb-4 section-heading border-bottom pb-2">Trainer Login</h1>
+			<div class="row">
+				<div class="col-md-6 offset-3">
+					{% if msg %}
+					<p class="text-warning">{{msg}}</p>
+					{% endif %}
+					<form method="post" action="">
+						{% csrf_token %}
+						<table class="table table-bordered">
+							{{form.as_table}}
+							<tr>
+								<td colspan="2">
+									<input type="submit" class="btn btn-primary" />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+		</section>
+		<!-- End -->
+    </main>
+    <!-- End -->
+{% endblock %}

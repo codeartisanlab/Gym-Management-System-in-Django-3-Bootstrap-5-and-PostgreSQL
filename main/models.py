@@ -138,6 +138,8 @@ class Subscription(models.Model):
 # Trainer
 class Trainer(models.Model):
 	full_name=models.CharField(max_length=100)
+	username=models.CharField(max_length=100,null=True)
+	pwd=models.CharField(max_length=50,null=True)
 	mobile=models.CharField(max_length=100)
 	address=models.TextField()
 	is_active=models.BooleanField(default=False)
