@@ -10,13 +10,9 @@
 				</div>
 				<div class="col-9">
 					<h3 class="mb-4 border-bottom pb-1">Notifications <span class="badge bg-primary">123</span></h3>
-					<ul class="list-group">
-						<li class="list-group-item">This is notification 2
-							<span class="btn btn-sm btn-success float-end"><i class="bi bi-check2-square"></i></span>
-						</li>
-						<li class="list-group-item bg-light">This is notification 1
-							<button class="btn btn-sm btn-secondary float-end">Mark Read</button>
-						</li>
+					<span class="ajaxRes"></span>
+					<ul class="list-group notif-list">
+						Loading...
 					</ul>
 				</div>
 			</div>
@@ -24,4 +20,30 @@
 		<!-- End -->
     </main>
     <!-- End -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".ajaxRes").hide();
+		setInterval(function(){
+			$.ajax({
+				url:"{% url 'get_notifs' %}",
+				dataType:'json',
+				beforeSend:function(){
+					$(".ajaxRes").show();
+					$(".ajaxRes").text('Loading...');
+				},
+				success:function(res){
+					_html='';
+					_json=$.parseJSON(res.data);
+					$.each(_json,function(index,d){
+						_html+='<li class="list-group-item bg-light">'+d.fields.notify_detail+'<button class="btn btn-sm btn-secondary float-end">MarkRead</button></li>';
+					});
+					$(".notif-list").html(_html);
+					$(".ajaxRes").hide();
+				}
+			});
+		},5000);
+	});
+</script>
+
 {% endblock %}

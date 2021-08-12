@@ -25,6 +25,7 @@ urlpatterns=[
 	path('trainerlogout',views.trainerlogout,name='trainerlogout'),
 	# Notifications
 	path('notifs',views.notifs,name='notifs'),
+	path('get_notifs',views.get_notifs,name='get_notifs'),
 ]
 
 if settings.DEBUG:
