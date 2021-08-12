@@ -150,3 +150,8 @@ def trainerlogin(request):
 def trainerlogout(request):
 	del request.session['trainerLogin']
 	return redirect('/trainerlogin')
+
+# Notifications
+def notifs(request):
+	data=models.Notify.objects.all().order_by('-id')
+	return render(request, 'notifs.html',{'data':data})
