@@ -26,6 +26,7 @@ urlpatterns=[
 	# Notifications
 	path('notifs',views.notifs,name='notifs'),
 	path('get_notifs',views.get_notifs,name='get_notifs'),
+	path('mark_read_notif',views.mark_read_notif,name='mark_read_notif'),
 ]
 
 if settings.DEBUG:

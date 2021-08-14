@@ -156,10 +156,35 @@ def trainerlogout(request):
 # Notifications
 def notifs(request):
 	data=models.Notify.objects.all().order_by('-id')
-	return render(request, 'notifs.html',{'data':data})
+	return render(request, 'notifs.html')
 
 # Get All Notifications
 def get_notifs(request):
 	data=models.Notify.objects.all().order_by('-id')
-	jsonData=serializers.serialize('json', data)
-	return JsonResponse({'data':jsonData})
+	notifStatus=False
+	jsonData=[]
+	totalUnread=0
+	for d in data:
+		try:
+			notifStatusData=models.NotifUserStatus.objects.get(user=request.user,notif=d)
+			if notifStatusData:
+				notifStatus=True
+		except models.NotifUserStatus.DoesNotExist:
+			notifStatus=False
+		if not notifStatus:
+			totalUnread=totalUnread+1
+		jsonData.append({
+				'pk':d.id,
+				'notify_detail':d.notify_detail,
+				'notifStatus':notifStatus
+			})
+	# jsonData=serializers.serialize('json', data)
+	return JsonResponse({'data':jsonData,'totalUnread':totalUnread})
+
+# Mark Read By user
+def mark_read_notif(request):
+	notif=request.GET['notif']
+	notif=models.Notify.objects.get(pk=notif)
+	user=request.user
+	models.NotifUserStatus.objects.create(notif=notif,user=user,status=True)
+	return JsonResponse({'bool':True})

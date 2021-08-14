@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+<style type="text/css">
+	.marked{
+		display: none;
+	}
+</style>
     <!-- Main Start -->
     <main>
 		<!-- Services -->
@@ -9,7 +14,7 @@
 					{% include 'user/left-sidebar.html' %}
 				</div>
 				<div class="col-9">
-					<h3 class="mb-4 border-bottom pb-1">Notifications <span class="badge bg-primary">123</span></h3>
+					<h3 class="mb-4 border-bottom pb-1">Notifications <span class="badge bg-primary totalunread">123</span></h3>
 					<span class="ajaxRes"></span>
 					<ul class="list-group notif-list">
 						Loading...
@@ -34,15 +39,46 @@
 				},
 				success:function(res){
 					_html='';
-					_json=$.parseJSON(res.data);
-					$.each(_json,function(index,d){
-						_html+='<li class="list-group-item bg-light">'+d.fields.notify_detail+'<button class="btn btn-sm btn-secondary float-end">MarkRead</button></li>';
+					$(".totalunread").text(res.totalUnread);
+					$.each(res.data,function(index,d){
+						if(d.notifStatus==true){
+							_html+='<li class="list-group-item list'+d.pk+'">'+d.notify_detail+'<button data-index="'+d.pk+'" data-notif="'+d.pk+'" class="btn btn-sm btn-secondary float-end markreadbtn markreadbtn'+d.pk+'"" style="display:none;">MarkRead</button><button class="float-end btn btn-success btn-sm marked'+d.pk+'"><i class="bi bi-check-square"></i></button></li>';
+						}else{
+							_html+='<li class="list-group-item bg-light list'+d.pk+'">'+d.notify_detail+'<button data-index="'+d.pk+'" data-notif="'+d.pk+'" class="btn btn-sm btn-secondary float-end markreadbtn markreadbtn'+d.pk+'"">MarkRead</button><button class="float-end btn btn-success btn-sm marked marked'+d.pk+'"><i class="bi bi-check-square"></i></button></li>';
+						}
 					});
 					$(".notif-list").html(_html);
 					$(".ajaxRes").hide();
 				}
 			});
 		},5000);
+
+		// MarkRead Section Start
+		$(document).on("click",".markreadbtn",function(){
+			var _index=$(this).attr('data-index');
+			var _notif=$(this).attr('data-notif');
+
+			$.ajax({
+				url:"{% url 'mark_read_notif' %}",
+				data:{
+					notif:_notif
+				},
+				dataType:'json',
+				beforeSend:function(){
+					
+				},
+				success:function(res){
+					if(res.bool==true){
+						$(".list"+_index).removeClass('bg-light');
+						$(".markreadbtn"+_index).hide();
+						$(".marked"+_index).show();
+					}
+				}
+			});
+
+		});
+		// End
+
 	});
 </script>
 
