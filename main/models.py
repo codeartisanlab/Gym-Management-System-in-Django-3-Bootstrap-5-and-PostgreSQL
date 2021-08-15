@@ -170,6 +170,14 @@ class NotifUserStatus(models.Model):
 	user=models.ForeignKey(User, on_delete=models.CASCADE)
 	status=models.BooleanField(default=False)
 
+# Assign Subscriber to Trainer
+class AssignSubscriber(models.Model):
+	subscriber=models.ForeignKey(Subscriber, on_delete=models.CASCADE)
+	trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return str(self.subscriber)
+
 
 
 
