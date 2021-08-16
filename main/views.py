@@ -120,7 +120,30 @@ def pay_cancel(request):
 
 # User Dashboard Section Start
 def user_dashboard(request):
-	return render(request, 'user/dashboard.html')
+	current_plan=models.Subscription.objects.get(user=request.user)
+	my_trainer=models.AssignSubscriber.objects.get(user=request.user)
+	my_trainer=models.AssignSubscriber.objects.get(user=request.user)
+
+	# Notification
+	data=models.Notify.objects.all().order_by('-id')
+	notifStatus=False
+	jsonData=[]
+	totalUnread=0
+	for d in data:
+		try:
+			notifStatusData=models.NotifUserStatus.objects.get(user=request.user,notif=d)
+			if notifStatusData:
+				notifStatus=True
+		except models.NotifUserStatus.DoesNotExist:
+			notifStatus=False
+		if not notifStatus:
+			totalUnread=totalUnread+1
+
+	return render(request, 'user/dashboard.html',{
+		'current_plan':current_plan,
+		'my_trainer':my_trainer,
+		'total_unread':totalUnread
+	})
 
 # Edit Form
 def update_profile(request):

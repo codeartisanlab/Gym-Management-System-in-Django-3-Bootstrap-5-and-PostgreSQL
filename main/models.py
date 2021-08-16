@@ -172,11 +172,11 @@ class NotifUserStatus(models.Model):
 
 # Assign Subscriber to Trainer
 class AssignSubscriber(models.Model):
-	subscriber=models.ForeignKey(Subscriber, on_delete=models.CASCADE)
+	user=models.ForeignKey(User, on_delete=models.CASCADE,null=True)
 	trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return str(self.subscriber)
+		return str(self.user)
 
 
 

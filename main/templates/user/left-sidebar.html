@@ -1,7 +1,7 @@
 <div class="list-group">
-	<a href="{% url 'user_dashboard' %}" class="list-group-item">Dashboard</a>
-	<a href="{% url 'update_profile' %}" class="list-group-item">Profile</a>
-	<a href="{% url 'password_change' %}" class="list-group-item">Change Password</a>
-	<a href="{% url 'notifs' %}" class="list-group-item">Notifications</a>
+	<a href="{% url 'user_dashboard' %}" class="list-group-item {% if request.path == '/user-dashboard' %} active {% endif %}">Dashboard</a>
+	<a href="{% url 'update_profile' %}" class="list-group-item {% if request.path == '/update-profile' %} active {% endif %}">Profile</a>
+	<a href="{% url 'password_change' %}" class="list-group-item {% if request.path == '/accounts/password_change/' %} active {% endif %}">Change Password</a>
+	<a href="{% url 'notifs' %}" class="list-group-item {% if request.path == '/notifs' %} active {% endif %}">Notifications <span class="float-end badge bg-info mt-1">{{total_unread}}</span></a>
 	<a href="#" class="list-group-item">Messages</a>
 </div>
