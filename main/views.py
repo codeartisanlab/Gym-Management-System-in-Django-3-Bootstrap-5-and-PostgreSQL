@@ -2,9 +2,13 @@ from django.shortcuts import render,redirect
 from django.template.loader import get_template
 from django.core import serializers
 from django.http import JsonResponse
+from django.db.models import Count
 from . import models
 from . import forms
 import stripe
+
+from datetime import timedelta
+
 # Home Page
 def home(request):
 	banners=models.Banners.objects.all()
@@ -47,7 +51,7 @@ def gallery_detail(request,id):
 
 # Subscription Plans
 def pricing(request):
-	pricing=models.SubPlan.objects.all().order_by('price')
+	pricing=models.SubPlan.objects.annotate(total_members=Count('subscription__id')).all().order_by('price')
 	dfeatures=models.SubPlanFeature.objects.all();
 	return render(request, 'pricing.html',{'plans':pricing,'dfeatures':dfeatures})
 
@@ -122,7 +126,7 @@ def pay_cancel(request):
 def user_dashboard(request):
 	current_plan=models.Subscription.objects.get(user=request.user)
 	my_trainer=models.AssignSubscriber.objects.get(user=request.user)
-	my_trainer=models.AssignSubscriber.objects.get(user=request.user)
+	enddate=current_plan.reg_date+timedelta(days=current_plan.plan.validity_days)
 
 	# Notification
 	data=models.Notify.objects.all().order_by('-id')
@@ -142,7 +146,8 @@ def user_dashboard(request):
 	return render(request, 'user/dashboard.html',{
 		'current_plan':current_plan,
 		'my_trainer':my_trainer,
-		'total_unread':totalUnread
+		'total_unread':totalUnread,
+		'enddate':enddate
 	})
 
 # Edit Form

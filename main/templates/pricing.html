@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load mathfilters %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-icons/font/bootstrap-icons.css' %}" />
 <section class="container my-4">
@@ -18,9 +19,9 @@
         </div>
         <div class="card-body">
           <h1 class="card-title pricing-card-title">${{plan.price}}
-            <small class="text-muted fw-light">/mo</small>
+            <small class="text-muted fw-light">/{{plan.validity_days}} Days</small>
           </h1>
-          <p class="text-success">Member Capacity {{plan.max_member}}</p>
+          <p class="text-success">Member Capacity {{plan.max_member|sub:plan.total_members}}</p>
           <ul class="list-unstyled mt-3 mb-4">
             {% for feature in plan.subplanfeature_set.all %}
             <li>{{feature.title}}</li>
