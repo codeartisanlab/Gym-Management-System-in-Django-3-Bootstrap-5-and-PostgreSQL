@@ -11,22 +11,64 @@
 				<div class="col-9">
 					<h3 class="mb-4 border-bottom pb-1">Dashboard</h3>
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<div class="card">
 								<h5 class="card-header">Current Package</h5>
-								<div class="card-body">
-									<h6 class="card-text">{{current_plan.plan}}</h6>
-									<p>Price: {{current_plan.price}}</p>
-									<p>Purchase Date: {{current_plan.reg_date}}</p>
-									<p>Expiry Date: {{enddate}}</p>
-								</div>
+								<ul class="list-group list-group-flush">
+								    <li class="list-group-item">{{current_plan.plan}}</li>
+								    <li class="list-group-item">Price: {{current_plan.price}}</li>
+								    <li class="list-group-item">Validity: {{current_plan.plan.validity_days}} Days</li>
+								    <li class="list-group-item">Purchase Date: {{current_plan.reg_date}}</li>
+								    <li class="list-group-item">Expiry Date: {{enddate}}</li>
+							  	</ul>
 							</div>
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<div class="card">
 								<h5 class="card-header">Assigned Trainer</h5>
+								<img src="{{my_trainer.trainer.img.url}}" class="card-img-top" alt="{{my_trainer.trainer}}">
 								<div class="card-body">
 									<h6 class="card-text">{{my_trainer.trainer}}</h6>
+								</div>
+								<div class="card-footer">
+									<a href="{{my_trainer.trainer.facebook}}" title="Facebook"><i class="bi bi-facebook"></i></a>
+									<a href="{{my_trainer.trainer.twitter}}" title="Twitter"><i class="bi bi-twitter"></i></a>
+									<a href="{{my_trainer.trainer.youtube}}"><i class="bi bi-youtube" title="YouTube"></i></a>
+									<a href="{{my_trainer.trainer.pinterest}}" title="Pinterest">P</a>
+									<button data-bs-toggle="modal" data-bs-target="#AchivementModal" title="Achivement" class="float-end btn btn-sm btn-success"><i class="bi bi-trophy-fill"></i></button>
+
+<!-- Modal -->
+<div class="modal fade" id="AchivementModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{my_trainer.trainer.full_name}} Achivements</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+        	<thead>
+        		<tr>
+        			<th>Title</th>
+        			<th>Image</th>
+        			<th>Detail</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		{% for achive in  my_trainer.trainer.trainerachivement_set.all %}
+        		<tr>
+	        		<td>{{achive.title}}</td>
+	        		<td><img src="{{achive.img.url}}" width="80" /></td>
+	        		<td>{{achive.detail}}</td>
+	        	</tr>
+	        	{% endfor %}
+        	</tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
 								</div>
 							</div>
 						</div>
