@@ -149,6 +149,7 @@ class Trainer(models.Model):
 	is_active=models.BooleanField(default=False)
 	detail=models.TextField()
 	img=models.ImageField(upload_to="trainers/")
+	salary=models.IntegerField(default=0)
 
 	facebook=models.CharField(max_length=200,null=True)
 	twitter=models.CharField(max_length=200,null=True)
@@ -206,6 +207,18 @@ class TrainerAchivement(models.Model):
 		else:
 			return 'no-image'
 
+# TrainerSalary Model
+class TrainerSalary(models.Model):
+	trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE)
+	amt=models.IntegerField()
+	amt_date=models.DateField()
+	remarks=models.TextField(blank=True)
+
+	class Meta:
+		verbose_name_plural='Trainer Salary'
+
+	def __str__(self):
+		return str(self.trainer.full_name)
 
 
 
