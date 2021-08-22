@@ -42,7 +42,8 @@
 	          <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
 	          	{% if not request.user.is_authenticated %}
 		            {% if request.session.trainerLogin %}
-		            <li><a class="dropdown-item" href="{% url 'trainerlogout' %}">Trainer Logout</a></li>
+		            <li><a class="dropdown-item" href="{% url 'trainer_dashboard' %}">Dashboard</a></li>
+		            <li><a class="dropdown-item" href="{% url 'trainerlogout' %}">Logout</a></li>
 		            {% else %}
 		            <li><a class="dropdown-item" href="{% url 'trainerlogin' %}">Trainer Login</a></li>
 		            <li><a class="dropdown-item" href="{% url 'signup' %}">Register</a></li>

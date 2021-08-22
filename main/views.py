@@ -169,7 +169,9 @@ def trainerlogin(request):
 		pwd=request.POST['pwd']
 		trainer=models.Trainer.objects.filter(username=username,pwd=pwd).count()
 		if trainer > 0:
+			trainer=models.Trainer.objects.filter(username=username,pwd=pwd).first()
 			request.session['trainerLogin']=True
+			request.session['trainerid']=trainer.id
 			return redirect('/trainer_dashboard')
 		else:
 			msg='Invalid!!'
@@ -180,6 +182,23 @@ def trainerlogin(request):
 def trainerlogout(request):
 	del request.session['trainerLogin']
 	return redirect('/trainerlogin')
+
+# Trainer Dashboard
+def trainer_dashboard(request):
+	return render(request, 'trainer/dashboard.html')
+
+# Trainer Profile
+def trainer_profile(request):
+	t_id=request.session['trainerid']
+	trainer=models.Trainer.objects.get(pk=t_id)
+	msg=None
+	if request.method=='POST':
+		form=forms.TrainerProfileForm(request.POST,request.FILES,instance=trainer)
+		if form.is_valid():
+			form.save()
+			msg='Profile has been updated'
+	form=forms.TrainerProfileForm(instance=trainer)
+	return render(request, 'trainer/profile.html',{'form':form,'msg':msg})
 
 # Notifications
 def notifs(request):
