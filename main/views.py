@@ -235,3 +235,15 @@ def mark_read_notif(request):
 	user=request.user
 	models.NotifUserStatus.objects.create(notif=notif,user=user,status=True)
 	return JsonResponse({'bool':True})
+
+# Trainer Subscribers
+def trainer_subscribers(request):
+	trainer=models.Trainer.objects.get(pk=request.session['trainerid'])
+	trainer_subs=models.AssignSubscriber.objects.filter(trainer=trainer).order_by('-id')
+	return render(request, 'trainer/trainer_subscribers.html',{'trainer_subs':trainer_subs})
+
+# Trainer Payments
+def trainer_payments(request):
+	trainer=models.Trainer.objects.get(pk=request.session['trainerid'])
+	trainer_pays=models.TrainerSalary.objects.filter(trainer=trainer).order_by('-id')
+	return render(request, 'trainer/trainer_payments.html',{'trainer_pays':trainer_pays})

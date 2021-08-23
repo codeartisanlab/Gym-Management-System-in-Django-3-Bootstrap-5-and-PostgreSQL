@@ -25,6 +25,8 @@ urlpatterns=[
 	path('trainerlogout',views.trainerlogout,name='trainerlogout'),
 	path('trainer_dashboard',views.trainer_dashboard,name='trainer_dashboard'),
 	path('trainer_profile',views.trainer_profile,name='trainer_profile'),
+	path('trainer_subscribers',views.trainer_subscribers,name='trainer_subscribers'),
+	path('trainer_payments',views.trainer_payments,name='trainer_payments'),
 	# Notifications
 	path('notifs',views.notifs,name='notifs'),
 	path('get_notifs',views.get_notifs,name='get_notifs'),

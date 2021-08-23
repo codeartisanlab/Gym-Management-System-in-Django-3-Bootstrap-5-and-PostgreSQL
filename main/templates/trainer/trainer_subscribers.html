@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- Main Start -->
+    <main>
+		<!-- Services -->
+		<section class="container my-4">
+			<div class="row">
+				<div class="col-3">
+					{% include 'trainer/left-sidebar.html' %}
+				</div>
+				<div class="col-9">
+					<h3 class="mb-4 border-bottom pb-1">Subscriber List</h3>
+					<div class="list-group">
+					{% for ts in trainer_subs %}	
+						<a href="#" class="list-group-item">{{ts.user}}</a>
+					{% endfor %}
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End -->
+    </main>
+    <!-- End -->
+{% endblock %}
