@@ -27,6 +27,7 @@ urlpatterns=[
 	path('trainer_profile',views.trainer_profile,name='trainer_profile'),
 	path('trainer_subscribers',views.trainer_subscribers,name='trainer_subscribers'),
 	path('trainer_payments',views.trainer_payments,name='trainer_payments'),
+	path('trainer_changepassword',views.trainer_changepassword,name='trainer_changepassword'),
 	# Notifications
 	path('notifs',views.notifs,name='notifs'),
 	path('get_notifs',views.get_notifs,name='get_notifs'),

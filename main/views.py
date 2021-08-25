@@ -247,3 +247,17 @@ def trainer_payments(request):
 	trainer=models.Trainer.objects.get(pk=request.session['trainerid'])
 	trainer_pays=models.TrainerSalary.objects.filter(trainer=trainer).order_by('-id')
 	return render(request, 'trainer/trainer_payments.html',{'trainer_pays':trainer_pays})
+
+# Trainer Change Password
+def trainer_changepassword(request):
+	msg=None
+	if request.method=='POST':
+		new_password=request.POST['new_password']
+		updateRes=models.Trainer.objects.filter(pk=request.session['trainerid']).update(pwd=new_password)
+		if updateRes:
+			del request.session['trainerLogin']
+			return redirect('/trainerlogin')
+		else:
+			msg='Something is wrong!!'
+	form=forms.TrainerChangePassword
+	return render(request, 'trainer/trainer_changepassword.html',{'form':form})
