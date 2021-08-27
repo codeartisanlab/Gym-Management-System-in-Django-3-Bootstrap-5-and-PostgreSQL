@@ -5,5 +5,5 @@
 	<a href="{% url 'trainer_payments' %}" class="list-group-item {% if request.path == '/trainer_payments' %} active {% endif %}">Payments</a>
 	<a href="{% url 'trainer_changepassword' %}" class="list-group-item {% if request.path == '/trainer_changepassword' %} active {% endif %}">Change Password</a>
 	<a href="#" class="list-group-item">Messages <span class="float-end badge bg-info mt-1">123</span></a>
-	<a href="#" class="list-group-item">Notifications <span class="float-end badge bg-info mt-1">123</span></a>
+	<a href="{% url 'trainer_notifs' %}" class="list-group-item {% if request.path == '/trainer_notifs' %} active {% endif %}">Notifications <span class="float-end badge bg-info mt-1">123</span></a>
 </div>
