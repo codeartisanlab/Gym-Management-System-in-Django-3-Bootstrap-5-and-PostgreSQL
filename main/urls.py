@@ -33,6 +33,8 @@ urlpatterns=[
 	path('notifs',views.notifs,name='notifs'),
 	path('get_notifs',views.get_notifs,name='get_notifs'),
 	path('mark_read_notif',views.mark_read_notif,name='mark_read_notif'),
+	# Messages
+	path('messages',views.trainer_msgs,name='messages'),
 ]
 
 if settings.DEBUG:

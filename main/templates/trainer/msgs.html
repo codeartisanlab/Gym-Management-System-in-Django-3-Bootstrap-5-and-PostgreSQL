@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<style type="text/css">
+	.marked{
+		display: none;
+	}
+</style>
+    <!-- Main Start -->
+    <main>
+		<!-- Services -->
+		<section class="container my-4">
+			<div class="row">
+				<div class="col-3">
+					{% include 'trainer/left-sidebar.html' %}
+				</div>
+				<div class="col-9">
+					<h3 class="mb-4 border-bottom pb-1">Messages <span class="badge bg-primary totalunread">{{msgs.count}}</span></h3>
+					<span class="ajaxRes"></span>
+
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>From</th>
+								<th>Message</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for msg in msgs %}
+							<tr>
+								<td>{{msg.user}}</td>
+								<td>{{msg.message}}</td>
+								<td><span class="btn btn-info btn-sm">MarkAsRead</span></td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+		<!-- End -->
+    </main>
+    <!-- End -->
+{% endblock %}
