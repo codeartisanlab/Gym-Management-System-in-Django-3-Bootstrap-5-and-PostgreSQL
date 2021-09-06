@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'main',
     'jazzmin',
     'django.contrib.admin',
@@ -70,7 +71,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'gymManageSys.wsgi.application'
+# WSGI_APPLICATION = 'gymManageSys.wsgi.application'
+ASGI_APPLICATION = 'gymManageSys.asgi.application'
 
 
 # Database
