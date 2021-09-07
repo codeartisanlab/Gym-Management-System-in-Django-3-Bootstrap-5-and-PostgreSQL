@@ -13,4 +13,10 @@ from django.core.asgi import get_asgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gymManageSys.settings')
 
-application = get_asgi_application()
+
+from channels.routing import ProtocolTypeRouter, URLRouter
+import main.routing
+# application = get_asgi_application()
+application=ProtocolTypeRouter({
+	'websocket':URLRouter(main.routing.ws_patterns)
+})
