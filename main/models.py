@@ -5,6 +5,11 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+
+import json
+
 # Banners
 class Banners(models.Model):
 	img=models.ImageField(upload_to="banners/")
@@ -227,6 +232,17 @@ class TrainerNotification(models.Model):
 	def __str__(self):
 		return str(self.notif_msg)
 
+	def save(self,*args,**kwargs):
+		super(TrainerNotification, self).save(*args,**kwargs)
+		channel_layer=get_channel_layer()
+		notif=self.notif_msg
+		total=TrainerNotification.objects.all().count()
+		async_to_sync(channel_layer.group_send)(
+			'noti_group_name',{
+				'type':'send_notification',
+				'value':json.dumps({'notif':notif,'total':total})
+			}
+		)
 
 # Markas Read Notification By Trainer
 class NotifTrainerStatus(models.Model):

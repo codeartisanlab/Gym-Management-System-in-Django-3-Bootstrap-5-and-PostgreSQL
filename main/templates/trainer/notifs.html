@@ -14,7 +14,7 @@
 					{% include 'trainer/left-sidebar.html' %}
 				</div>
 				<div class="col-9">
-					<h3 class="mb-4 border-bottom pb-1">Notifications <span class="badge bg-primary totalunread">123</span></h3>
+					<h3 class="mb-4 border-bottom pb-1">Notifications <span class="badge bg-primary totalunread">{{notifs.count}}</span></h3>
 					<span class="ajaxRes"></span>
 					<ul class="list-group notif-list">
 						{% for notif in notifs %}
@@ -46,7 +46,10 @@
 	}
 
 	webSocket.onmessage=function(event){
-		console.log('Received');
+		var _data=JSON.parse(event.data);
+		console.log(_data);
+		$(".notif-list").append('<li class="list-group-item">'+_data.notif+'<span class="btn btn-info btn-sm float-end">MarkAsRead</span></li>');
+		$(".totalunread").text(_data.total);
 	}
 
 	webSocket.onclose=function(event){
