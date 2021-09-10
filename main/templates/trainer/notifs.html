@@ -11,16 +11,18 @@
 		<section class="container my-4">
 			<div class="row">
 				<div class="col-3">
-					{% include 'trainer/left-sidebar.html' %}
+					{% include 'trainer/left-sidebar.html' with totalUnread=totalUnread %}
 				</div>
 				<div class="col-9">
-					<h3 class="mb-4 border-bottom pb-1">Notifications <span class="badge bg-primary totalunread">{{notifs.count}}</span></h3>
+					<h3 class="mb-4 border-bottom pb-1">Notifications <span class="badge bg-primary totalunread">{{totalUnread}}</span></h3>
 					<span class="ajaxRes"></span>
 					<ul class="list-group notif-list">
 						{% for notif in notifs %}
 						<li class="list-group-item">
-							{{notif.notif_msg}}
-							<span class="btn btn-info btn-sm float-end">MarkAsRead</span>
+							{{notif.notify_detail}}
+							{% if not notif.notifStatus %}
+							<span data-index="{{notif.pk}}" data-notif="{{notif.pk}}" class="btn btn-info btn-sm float-end markreadbtn">MarkAsRead</span>
+							{% endif %}
 						</li>
 						{% endfor %}
 					</ul>
@@ -55,6 +57,31 @@
 	webSocket.onclose=function(event){
 		console.log('Closed');
 	}
+
+
+// MarkRead Section Start
+$(document).on("click",".markreadbtn",function(){
+	var _index=$(this).attr('data-index');
+	var _notif=$(this).attr('data-notif');
+	var _vm=$(this);
+	$.ajax({
+		url:"{% url 'mark_read_trainer_notif' %}",
+		data:{
+			notif:_notif
+		},
+		dataType:'json',
+		beforeSend:function(){
+			
+		},
+		success:function(res){
+			if(res.bool==true){
+				$(".totalunread").text(res.totalUnread);
+				_vm.remove();
+			}
+		}
+	});
+});
+// End
 
 </script>
 

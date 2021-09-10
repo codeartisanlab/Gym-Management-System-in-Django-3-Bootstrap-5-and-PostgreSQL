@@ -265,7 +265,46 @@ def trainer_changepassword(request):
 # Trainer Notifications
 def trainer_notifs(request):
 	data=models.TrainerNotification.objects.all().order_by('-id')
-	return render(request, 'trainer/notifs.html',{'notifs':data})
+	trainer=models.Trainer.objects.get(id=request.session['trainerid'])
+	jsonData=[]
+	totalUnread=0
+	for d in data:
+		try:
+			notifStatusData=models.NotifTrainerStatus.objects.get(trainer=trainer,notif=d)
+			if notifStatusData:
+				notifStatus=True
+		except models.NotifTrainerStatus.DoesNotExist:
+			notifStatus=False
+		if not notifStatus:
+			totalUnread=totalUnread+1
+		jsonData.append({
+			'pk':d.id,
+			'notify_detail':d.notif_msg,
+			'notifStatus':notifStatus
+		})
+	return render(request, 'trainer/notifs.html',{'notifs':jsonData,'totalUnread':totalUnread})
+
+# Mark Read By trainer
+def mark_read_trainer_notif(request):
+	notif=request.GET['notif']
+	notif=models.TrainerNotification.objects.get(pk=notif)
+	trainer=models.Trainer.objects.get(id=request.session['trainerid'])
+	models.NotifTrainerStatus.objects.create(notif=notif,trainer=trainer,status=True)
+
+	# Count Unread
+	totalUnread=0
+	data=models.TrainerNotification.objects.all().order_by('-id')
+	for d in data:
+		try:
+			notifStatusData=models.NotifTrainerStatus.objects.get(trainer=trainer,notif=d)
+			if notifStatusData:
+				notifStatus=True
+		except models.NotifTrainerStatus.DoesNotExist:
+			notifStatus=False
+		if not notifStatus:
+			totalUnread=totalUnread+1
+
+	return JsonResponse({'bool':True,'totalUnread':totalUnread})
 
 # Trainer Messages
 def trainer_msgs(request):
