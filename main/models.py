@@ -262,4 +262,12 @@ class TrainerMsg(models.Model):
 	class Meta:
 		verbose_name_plural='Messages For Trainer'
 
+# Reports
+class TrainerSubscriberReport(models.Model):
+	report_for_trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE,null=True,related_name='report_for_trainer')
+	report_for_user=models.ForeignKey(User, on_delete=models.CASCADE,null=True,related_name='report_for_user')
+	report_from_trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE,null=True,related_name='report_from_trainer',blank=True)
+	report_from_user=models.ForeignKey(User, on_delete=models.CASCADE,null=True,related_name='report_from_user',blank=True)
+	report_msg=models.TextField()
+
 

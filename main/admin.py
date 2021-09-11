@@ -93,3 +93,8 @@ admin.site.register(models.NotifTrainerStatus,TrainerNotificationStatusAdmin)
 class TrainerMsgAdmin(admin.ModelAdmin):
 	list_display=('user','trainer','message')
 admin.site.register(models.TrainerMsg,TrainerMsgAdmin)
+
+# Report For user
+class TrainerSubscriberReportAdmin(admin.ModelAdmin):
+	list_display=('report_msg','report_for_trainer','report_for_user','report_from_trainer','report_from_user')
+admin.site.register(models.TrainerSubscriberReport,TrainerSubscriberReportAdmin)
