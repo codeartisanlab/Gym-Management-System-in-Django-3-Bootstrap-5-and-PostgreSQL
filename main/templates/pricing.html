@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load check_package %}
 {% load mathfilters %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-icons/font/bootstrap-icons.css' %}" />
@@ -27,8 +28,16 @@
             <li>{{feature.title}}</li>
             {% endfor %}
           </ul>
+
+          {% check_user_package request.user.id plan.id as check_pckg %}
+
           {% if request.user.is_authenticated %}
+          {% if check_pckg %}
+          <a href="#" class="w-100 btn btn-lg btn-dark disabled">Purchased</a>
+          {% else %}
           <a href="{% url 'checkout' plan.id %}" class="w-100 btn btn-lg btn-outline-primary">Get started</a>
+          {% endif %}
+          
           {% else %}
           <a href="{% url 'login' %}" class="w-100 btn btn-lg btn-outline-primary">Get started</a>
           {% endif %}
