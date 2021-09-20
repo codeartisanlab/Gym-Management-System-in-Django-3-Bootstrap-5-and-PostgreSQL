@@ -26,6 +26,10 @@ def faq_list(request):
 	faq=models.Faq.objects.all()
 	return render(request, 'faq.html',{'faqs':faq})
 
+# Contact
+def contact_page(request):
+	return render(request, 'contact_us.html')
+
 # Enquiry
 def enquiry(request):
 	msg=''
