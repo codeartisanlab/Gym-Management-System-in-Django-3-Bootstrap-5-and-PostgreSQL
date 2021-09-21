@@ -270,4 +270,10 @@ class TrainerSubscriberReport(models.Model):
 	report_from_user=models.ForeignKey(User, on_delete=models.CASCADE,null=True,related_name='report_from_user',blank=True)
 	report_msg=models.TextField()
 
+class AppSetting(models.Model):
+	logo_img=models.ImageField(upload_to='app_logos/')
+
+	def image_tag(self):
+		return mark_safe('<img src="%s" width="80" />' % (self.logo_img.url))
+
 
