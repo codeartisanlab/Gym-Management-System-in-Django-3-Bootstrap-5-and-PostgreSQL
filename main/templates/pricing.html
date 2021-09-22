@@ -37,7 +37,7 @@
 
           {% if check_pckg %}
             {% if check_validity %}
-              <a href="#" class="w-100 btn btn-lg btn-dark disabled">Expired</a>
+              <a href="{% url 'checkout' plan.id %}" class="w-100 btn btn-lg btn-outline-primary">Get started</a>
             {% else %}
               <a href="#" class="w-100 btn btn-lg btn-dark disabled">Purchased</a>
             {% endif %}
